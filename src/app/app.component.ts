@@ -7,4 +7,12 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'Football Updates';
+  countries: string[] = [
+    'England',
+    'Spain',
+    'Germany',
+    'France',
+    'Italy'
+  ];
+
 }

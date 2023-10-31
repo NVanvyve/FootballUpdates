@@ -1,2 +1,10 @@
 <h1>{{title}}</h1>
+<mat-toolbar class="toolbar-full-width">
+  <a *ngFor="let country of countries"
+     [id]="(country | lowercase) + 'Select'"
+     [routerLink]="'/'+(country | lowercase)"
+     mat-button>
+    {{country | titlecase}}
+  </a>
+</mat-toolbar>
 <router-outlet></router-outlet>
