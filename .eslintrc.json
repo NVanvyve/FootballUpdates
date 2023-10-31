@@ -50,10 +50,19 @@
             "ignoreStatic": true
           }
         ],
-        "@angular-eslint/use-lifecycle-interface": 2,
-        "unicorn/no-null": 1,
-        "unicorn/empty-brace-spaces": 0,
-        "unicorn/prevent-abbreviations": 1,
+        "@angular-eslint/use-lifecycle-interface": "error",
+        "unicorn/no-null": "warn",
+        "@typescript-eslint/no-explicit-any": "error",
+        "unicorn/empty-brace-spaces": "warn",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/no-inferrable-types": "error",
+        "@typescript-eslint/typedef": [
+          "error",
+          {
+            "variableDeclaration": true
+          }
+        ],
+        "unicorn/prevent-abbreviations": "warn",
         "no-console": [
           "error",
           {
