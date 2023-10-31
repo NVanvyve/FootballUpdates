@@ -1,6 +1,4 @@
-import {Environment} from "./types/environment";
-
-export const environment: Environment = {
+export const environment = {
   production: true,
   apiKey: '{SECRET_API_KEY}'
 };
