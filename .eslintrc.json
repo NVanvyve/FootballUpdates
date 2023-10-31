@@ -27,7 +27,6 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "foot",
             "style": "camelCase"
           }
         ],
@@ -54,6 +53,7 @@
         "@angular-eslint/use-lifecycle-interface": 2,
         "unicorn/no-null": 1,
         "unicorn/empty-brace-spaces": 0,
+        "unicorn/prevent-abbreviations": 1,
         "no-console": [
           "error",
           {
