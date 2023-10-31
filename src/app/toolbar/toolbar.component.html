@@ -1,0 +1,13 @@
+<mat-toolbar class="toolbar-full-width">
+  <a *ngFor="let footballCountry of footballCountries"
+     [id]="(footballCountry.name| lowercase) + 'Select'"
+     [routerLink]="'/'+(footballCountry.name | lowercase)"
+     mat-button>
+    <div class="country">
+      {{footballCountry.name | titlecase}}
+    </div>
+    <div class="league">
+      {{footballCountry.league | titlecase}}
+    </div>
+  </a>
+</mat-toolbar>

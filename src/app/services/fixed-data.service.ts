@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {FootballCountry} from "./model/football-country.model";
+import {FootballCountry} from "../model/football-country.model";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppService {
+export class FixedDataService {
   getCountries(): FootballCountry[] {
     return [
       {

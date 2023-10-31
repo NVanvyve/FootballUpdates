@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {AppService} from "./app.service";
-import {FootballCountry} from "./model/football-country.model";
 
 @Component({
   selector: 'app-root',
@@ -9,10 +7,4 @@ import {FootballCountry} from "./model/football-country.model";
 })
 export class AppComponent {
   title = 'Football Updates';
-  footballCountries: FootballCountry[] = this.appService.getCountries();
-
-  constructor(private appService: AppService) {
-  }
-
-
 }
