@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FootballCountry} from "../../model/football-country.model";
-import {FixedDataService} from "../../services/fixed-data.service";
+import {CountryService} from "../../services/country.service";
 
 @Component({
   selector: 'foot-toolbar',
@@ -8,8 +8,8 @@ import {FixedDataService} from "../../services/fixed-data.service";
   styleUrls: ['./toolbar.component.sass']
 })
 export class ToolbarComponent {
-  footballCountries: FootballCountry[] = this.fixedDataService.getCountries();
+  footballCountries: FootballCountry[] = this.countryService.footballCountries;
 
-  constructor(private fixedDataService: FixedDataService) {
+  constructor(private countryService: CountryService) {
   }
 }

@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {LeagueDetailsComponent} from "./components/league-details/league-details.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {leagueGuard} from "./components/guards/league.guard";
+import {defaultCountryGuard} from "./components/guards/default-country.guard";
 
 const routerOptions: ExtraOptions = {
   useHash: false,
@@ -10,38 +12,22 @@ const routerOptions: ExtraOptions = {
 
 const routes: Routes = [
   {
-    path: 'england',
-    component: LeagueDetailsComponent,
-  },
-  {
-    path: 'spain',
-    component: LeagueDetailsComponent,
-  },
-  {
-    path: 'france',
-    component: LeagueDetailsComponent,
-  },
-  {
-    path: 'germany',
-    component: LeagueDetailsComponent,
-  },
-  {
-    path: 'italy',
-    component: LeagueDetailsComponent,
-  },
-  {
     path: '',
-    redirectTo: 'england',
-    pathMatch: 'full'
+    canActivate: [defaultCountryGuard],
+    component: NotFoundComponent // All paths should be redirected to the default country
   },
   {
     path: 'not-found',
     component: NotFoundComponent
   },
   {
+    path: ':country',
+    component: LeagueDetailsComponent,
+    canActivate: [leagueGuard],
+  },
+  {
     path: '**',
     redirectTo: 'not-found',
-    pathMatch: 'full'
   }
 ];
 

@@ -57,7 +57,7 @@
         "@typescript-eslint/no-explicit-any": "error",
         "unicorn/empty-brace-spaces": "warn",
         "@typescript-eslint/explicit-function-return-type": "error",
-        "@typescript-eslint/no-inferrable-types": "error",
+        "@typescript-eslint/no-inferrable-types": "warn",
         "@typescript-eslint/typedef": [
           "error",
           {
