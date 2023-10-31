@@ -1,15 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {environment} from "../environments/environment";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'football-updates';
-
-  ngOnInit(): void {
-    console.log('environment', environment);
-  }
 }

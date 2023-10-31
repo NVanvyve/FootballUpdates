@@ -8,7 +8,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:prod": "ng build --configuration production --base-href \"https://nvanvyve.github.io/FootballUpdates/\""
+    "build:prod": "ng build --configuration production --base-href \"https://nvanvyve.github.io/FootballUpdates/\"",
+    "lint": "ng lint",
+    "lint:quiet": "ng lint --quiet",
+    "lint:fix": "ng lint --fix"
   },
   "private": true,
   "dependencies": {
@@ -28,9 +31,18 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.2.8",
+    "@angular-eslint/builder": "16.2.0",
+    "@angular-eslint/eslint-plugin": "16.2.0",
+    "@angular-eslint/eslint-plugin-template": "16.2.0",
+    "@angular-eslint/schematics": "16.2.0",
+    "@angular-eslint/template-parser": "16.2.0",
     "@angular/cli": "^16.2.8",
     "@angular/compiler-cli": "^16.2.0",
     "@types/jasmine": "~4.3.0",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "^8.52.0",
+    "eslint-plugin-unicorn": "^49.0.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
