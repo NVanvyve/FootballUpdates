@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {FootballCountry} from "../model/football-country.model";
-import {FixedDataService} from "../services/fixed-data.service";
+import {FootballCountry} from "../../model/football-country.model";
+import {FixedDataService} from "../../services/fixed-data.service";
 
 @Component({
   selector: 'foot-toolbar',
