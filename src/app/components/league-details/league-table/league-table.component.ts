@@ -1,4 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {StandingsTableElement} from "../../../model/standings.model";
+
+interface ColumnDefinition {
+  name: string
+  displayName: string
+}
 
 @Component({
   selector: 'foot-league-table',
@@ -6,7 +12,40 @@ import {Component} from '@angular/core';
   styleUrls: ['./league-table.component.sass']
 })
 export class LeagueTableComponent {
-  dataSource: any[] = [];
-  displayedColumns: string[] = ['position', 'image', 'name', 'game', 'win', 'lose', 'draw', 'goal-difference', 'points'];
+  @Input({required: true}) data!: StandingsTableElement[];
+
+  displayedColumns: string[] = [
+    'position',
+    'image',
+    'name',
+    'games',
+    'win',
+    'lose',
+    'draw',
+    'goalDifference',
+    'points'
+  ];
+  simpleTableColumns: ColumnDefinition[] = [{
+    name: 'position',
+    displayName: ''
+  }, {
+    name: 'games',
+    displayName: 'Games'
+  }, {
+    name: 'win',
+    displayName: 'W'
+  }, {
+    name: 'lose',
+    displayName: 'L'
+  }, {
+    name: 'draw',
+    displayName: 'D'
+  }, {
+    name: 'goalDifference',
+    displayName: 'Goal Difference'
+  }, {
+    name: 'points',
+    displayName: 'Points'
+  }]
 
 }

@@ -3,6 +3,8 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {map, Observable} from "rxjs";
 import {FootballCountry} from "../../model/football-country.model";
 import {CountryService} from "../../services/country.service";
+import {StandingsTableElement} from "../../model/standings.model";
+import {fakeTableData} from "./league-table/fakedata";
 
 @Component({
   selector: 'foot-league-details',
@@ -13,6 +15,7 @@ export class LeagueDetailsComponent implements OnInit {
 
   footballCountry?: FootballCountry;
   isReady: boolean = false;
+  tableData: StandingsTableElement[] = fakeTableData; // TODO Change with real data
 
   constructor(
     private route: ActivatedRoute,

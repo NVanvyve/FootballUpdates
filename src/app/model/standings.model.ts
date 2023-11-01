@@ -50,3 +50,16 @@ export interface StandingsApiResponse {
   results: number
   response: StandingsResponse[]
 }
+
+export interface StandingsTableElement {
+  position: number
+  teamId: number
+  image: string
+  name: string
+  games: number
+  win: number
+  lose: number
+  draw: number
+  goalDifference: number
+  points: number
+}

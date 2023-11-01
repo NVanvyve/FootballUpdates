@@ -1,6 +1,7 @@
 <div *ngIf="isReady; else elseBlock" class="main">
-  <h2>{{(footballCountry!.name | titlecase) + " - " + (footballCountry!.league | titlecase)}}</h2>
-  <!--  <foot-league-table></foot-league-table>-->
+  <foot-league-table
+    [data]="tableData">
+  </foot-league-table>
 </div>
 
 
