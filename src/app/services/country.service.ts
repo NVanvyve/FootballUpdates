@@ -35,4 +35,8 @@ export class CountryService {
   get defaultCountryName(): string {
     return this._footballCountries[0].name;
   }
+
+  getCountry(country: string): FootballCountry | undefined {
+    return this._footballCountries.find((c) => c.name === country);
+  }
 }

@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {LeagueDetailsComponent} from "./components/league-details/league-details.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
-import {leagueGuard} from "./components/guards/league.guard";
-import {defaultCountryGuard} from "./components/guards/default-country.guard";
+import {leagueGuard} from "./guards/league.guard";
+import {defaultCountryGuard} from "./guards/default-country.guard";
 
 const routerOptions: ExtraOptions = {
   useHash: false,

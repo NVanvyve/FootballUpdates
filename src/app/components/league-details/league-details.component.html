@@ -1,1 +1,9 @@
-<p>league-details works!</p>
+<div *ngIf="isReady; else elseBlock" class="main">
+  <h2>{{(footballCountry!.name | titlecase) + " - " + (footballCountry!.league | titlecase)}}</h2>
+  <!--  <foot-league-table></foot-league-table>-->
+</div>
+
+
+<ng-template #elseBlock>
+  <foot-loader></foot-loader>
+</ng-template>

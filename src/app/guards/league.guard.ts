@@ -1,5 +1,5 @@
 import {CanActivateFn, Router, UrlTree} from '@angular/router';
-import {CountryService} from "../../services/country.service";
+import {CountryService} from "../services/country.service";
 import {inject} from "@angular/core";
 
 export const leagueGuard: CanActivateFn = (route, _state): boolean | UrlTree => {
