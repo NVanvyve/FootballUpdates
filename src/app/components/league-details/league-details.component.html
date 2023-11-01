@@ -1,0 +1,10 @@
+<div *ngIf="isReady; else elseBlock" class="main">
+  <foot-league-table
+    [data]="tableData">
+  </foot-league-table>
+</div>
+
+
+<ng-template #elseBlock>
+  <foot-loader></foot-loader>
+</ng-template>

@@ -1,17 +1,5 @@
 <div class="app">
   <h1>{{title}}</h1>
-<mat-toolbar class="toolbar-full-width">
-  <a *ngFor="let footballCountry of footballCountries"
-     [id]="(footballCountry.name| lowercase) + 'Select'"
-     [routerLink]="'/'+(footballCountry.name | lowercase)"
-     mat-button>
-    <div class="country">
-      {{footballCountry.name | titlecase}}
-    </div>
-    <div class="league">
-      {{footballCountry.league | titlecase}}
-    </div>
-  </a>
-</mat-toolbar>
+  <foot-toolbar></foot-toolbar>
   <router-outlet></router-outlet>
 </div>
