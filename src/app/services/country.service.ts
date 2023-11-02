@@ -8,19 +8,24 @@ export class CountryService {
   private _footballCountries: FootballCountry[] = [
     {
       name: 'england',
-      league: 'Premier League'
+      league: 'Premier League',
+      leagueId: 39
     }, {
       name: 'spain',
-      league: 'La Liga'
+      league: 'La Liga',
+      leagueId: 140
     }, {
       name: 'france',
-      league: 'Ligue 1'
+      league: 'Ligue 1',
+      leagueId: 61
     }, {
       name: 'germany',
-      league: 'Bundesliga'
+      league: 'Bundesliga',
+      leagueId: 78
     }, {
       name: 'italy',
-      league: 'Serie A'
+      league: 'Serie A',
+      leagueId: 135
     }
   ];
 
@@ -36,7 +41,11 @@ export class CountryService {
     return this._footballCountries[0].name;
   }
 
-  getCountry(country: string): FootballCountry | undefined {
-    return this._footballCountries.find((c) => c.name === country);
+  getCountry(country: string): FootballCountry {
+    const find = this._footballCountries.find((c) => c.name === country);
+    if (!find) {
+      throw new Error(`Country ${country} not found`);
+    }
+    return find;
   }
 }

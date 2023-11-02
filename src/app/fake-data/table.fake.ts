@@ -1,4 +1,4 @@
-import {StandingsTableElement} from "../../../model/standings.model";
+import {StandingsTableElement} from "../model/standings.model";
 
 export const fakeTableData: StandingsTableElement[] = [{
   position: 1,
