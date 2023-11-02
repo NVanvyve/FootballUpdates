@@ -12,10 +12,9 @@ export class StandingsApiService {
   constructor(private countryService: CountryService) {
   }
 
-  private getStandings(country: FootballCountry['name']): Observable<StandingsApiResponse> {
-    const _leagueId = this.countryService.getCountry(country).leagueId;
-    // get current year
-    const _season = new Date().getFullYear();
+  private getStandings(_country: FootballCountry['name']): Observable<StandingsApiResponse> {
+    // const _leagueId = this.countryService.getCountry(country).leagueId;
+    // const _season = new Date().getFullYear();
     return of(england2023).pipe(delay(1000));
   }
 

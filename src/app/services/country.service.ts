@@ -42,7 +42,7 @@ export class CountryService {
   }
 
   getCountry(country: string): FootballCountry {
-    const find = this._footballCountries.find((c) => c.name === country);
+    const find: FootballCountry | undefined = this._footballCountries.find((c) => c.name === country);
     if (!find) {
       throw new Error(`Country ${country} not found`);
     }
