@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {FootballCountry} from "../../model/football-country.model";
 import {CountryService} from "../../services/country.service";
 import {StandingsTableElement} from "../../model/standings.model";
@@ -50,6 +50,9 @@ export class LeagueDetailsComponent implements OnInit {
 
   private getCountryFromRoute(): Observable<string> {
     return this.route.paramMap.pipe(
+      tap(() => {
+        this.isReady = false;
+      }),
       map((paramMap: ParamMap) => {
           const country: string | null = paramMap.get('country');
           if (!country) {
