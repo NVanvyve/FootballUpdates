@@ -1,21 +1,37 @@
 import {Injectable} from '@angular/core';
 import {StandingsApiResponse, StandingsResponse, StandingsTableElement, TeamStats} from "../model/standings.model";
-import {delay, map, Observable, of} from "rxjs";
-import {england2023} from "../fake-data/standing-api-england-2023";
+import {map, Observable} from "rxjs";
 import {FootballCountry} from "../model/football-country.model";
 import {CountryService} from "./country.service";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StandingsApiService {
-  constructor(private countryService: CountryService) {
+
+  private readonly baseUrl: string = `https://v3.football.api-sports.io/standings`
+
+  constructor(
+    private countryService: CountryService,
+    private http: HttpClient) {
   }
 
-  private getStandings(_country: FootballCountry['name']): Observable<StandingsApiResponse> {
-    // const _leagueId = this.countryService.getCountry(country).leagueId;
-    // const _season = new Date().getFullYear();
-    return of(england2023).pipe(delay(1000));
+  private getStandings(country: FootballCountry['name']): Observable<StandingsApiResponse> {
+    const leagueId: number = this.getLeagueId(country);
+    const season: number = this.getCurrentSeason();
+
+    const url: string = `${this.baseUrl}?league=${leagueId.toString()}&season=${season.toString()}`;
+
+    return this.http.get<StandingsApiResponse>(url);
+  }
+
+  private getLeagueId(country: string): number {
+    return this.countryService.getCountry(country).leagueId;
+  }
+
+  private getCurrentSeason(): number {
+    return new Date().getFullYear();
   }
 
   public getStandingsByCountry(country: FootballCountry['name']): Observable<StandingsTableElement[]> {
@@ -33,11 +49,11 @@ export class StandingsApiService {
     }
     const teamStats: TeamStats[] = find.league.standings[0];
     return teamStats
-      .map((teamStats: TeamStats) => this.toTableEmelent(teamStats))
+      .map((teamStats: TeamStats) => this.toTableElement(teamStats))
       .sort((a: StandingsTableElement, b: StandingsTableElement) => a.position - b.position);
   }
 
-  private toTableEmelent(teamStats: TeamStats): StandingsTableElement {
+  private toTableElement(teamStats: TeamStats): StandingsTableElement {
     return {
       position: teamStats.rank,
       teamId: teamStats.team.id,

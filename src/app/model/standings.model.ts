@@ -1,3 +1,5 @@
+import {ApiFootballResponse} from "./api-football-response.model";
+
 interface Matches {
   played: number
   win: number
@@ -40,17 +42,12 @@ export interface StandingsResponse {
   }
 }
 
-export interface StandingsApiResponse {
-  get: string
+
+export interface StandingsApiResponse extends ApiFootballResponse {
+  get: 'standings'
   parameters: {
     league: string
     season: string
-  }
-  errors: string[]
-  results: number
-  paging?: {
-    current: number
-    total: number
   }
   response: StandingsResponse[]
 }

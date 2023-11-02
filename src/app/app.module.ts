@@ -12,6 +12,11 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {LeagueTableComponent} from './components/league-details/league-table/league-table.component';
 import {LoaderComponent} from './components/loader/loader.component';
 import {MatTableModule} from "@angular/material/table";
+import {ErrorComponent} from './components/error/error.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {FootballApiInterceptor} from "./interceptors/football-api.interceptor";
+import {TeamResultComponent} from './components/team-result/team-result.component';
+import {TeamDetailsTableComponent} from './components/team-result/team-details-table/team-details-table.component';
 
 
 @NgModule({
@@ -21,7 +26,10 @@ import {MatTableModule} from "@angular/material/table";
     LeagueDetailsComponent,
     NotFoundComponent,
     LeagueTableComponent,
-    LoaderComponent
+    LoaderComponent,
+    ErrorComponent,
+    TeamResultComponent,
+    TeamDetailsTableComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +37,16 @@ import {MatTableModule} from "@angular/material/table";
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
-    MatTableModule
+    MatTableModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FootballApiInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

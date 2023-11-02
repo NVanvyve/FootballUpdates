@@ -1,6 +1,6 @@
 import {StandingsTableElement} from "../model/standings.model";
 
-export const fakeTableData: StandingsTableElement[] = [{
+export const fakeTableData: StandingsTableElement[] = [{ // TODO Delete
   position: 1,
   teamId: 40,
   image: 'https://media.api-sports.io/football/teams/40.png',
