@@ -4,7 +4,7 @@ import {map, Observable} from "rxjs";
 import {FootballCountry} from "../../model/football-country.model";
 import {CountryService} from "../../services/country.service";
 import {StandingsTableElement} from "../../model/standings.model";
-import {fakeTableData} from "./league-table/fakedata";
+import {StandingsApiService} from "../../services/standings-api.service";
 
 @Component({
   selector: 'foot-league-details',
@@ -15,11 +15,12 @@ export class LeagueDetailsComponent implements OnInit {
 
   footballCountry?: FootballCountry;
   isReady: boolean = false;
-  tableData: StandingsTableElement[] = fakeTableData; // TODO Change with real data
+  tableData?: StandingsTableElement[];
 
   constructor(
     private route: ActivatedRoute,
-    private countryService: CountryService
+    private countryService: CountryService,
+    private standingsApiService: StandingsApiService
   ) {
   }
 
@@ -28,7 +29,15 @@ export class LeagueDetailsComponent implements OnInit {
       next: (country: string) => {
         this.footballCountry = this.countryService.getCountry(country);
         if (this.footballCountry) {
-          this.isReady = true;
+          this.standingsApiService.getStandingsByCountry(this.footballCountry.name).subscribe({
+            next: (tableData: StandingsTableElement[]) => {
+              this.tableData = tableData;
+              this.isReady = true;
+            },
+            error: (error: Error) => {
+              console.error(error);
+            }
+          });
         }
       },
       error: (error: Error) => {

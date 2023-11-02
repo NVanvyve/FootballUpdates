@@ -6,7 +6,7 @@ import {leagueGuard} from "./guards/league.guard";
 import {defaultCountryGuard} from "./guards/default-country.guard";
 
 const routerOptions: ExtraOptions = {
-  useHash: false,
+  useHash: true,
   enableTracing: false,
 };
 
