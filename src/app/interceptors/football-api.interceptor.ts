@@ -3,6 +3,12 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from
 import {Observable, tap} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {ApiFootballResponse, ErrorObject, ResponseError} from "../model/api-football-response.model";
+import {StandingsApiResponse} from "../model/standings.model";
+
+interface CacheEntry {
+  date: string
+  data: ApiFootballResponse
+}
 
 @Injectable()
 export class FootballApiInterceptor implements HttpInterceptor {
@@ -10,18 +16,53 @@ export class FootballApiInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (request.url.includes('v3.football.api-sports.io')) {
-      const clone: HttpRequest<unknown> = request.clone({
-        headers: request.headers
-          .set('x-rapidapi-host', 'v3.football.api-sports.io')
-          .set('x-rapidapi-key', this.API_KEY)
-      });
-
-      return next.handle(clone).pipe(
+      // Check if item is in cache
+      const key: string = this.buildKey(request);
+      const item: string | null = localStorage.getItem(key);
+      if (item) {
+        const cachedEntry: CacheEntry = JSON.parse(item) as CacheEntry
+        const date: string = this.getDateOfToday();
+        if (cachedEntry.date === date) {
+          return this.getObservable(cachedEntry);
+        } else {
+          localStorage.removeItem(key); // Result is outdated
+        }
+      }
+      // If not relevant, make the request
+      return next.handle(this.httpRequestWithHeader(request)).pipe(
         tap((event: HttpEvent<unknown>) => {
+          // Format the error message
           this.handleErrorInApiResponse(event);
+          this.cacheResults(event);
         }));
     } else {
       return next.handle(request);
+    }
+  }
+
+  private httpRequestWithHeader(request: HttpRequest<unknown>): HttpRequest<unknown> {
+    return request.clone({
+      headers: request.headers
+        .set('x-rapidapi-host', 'v3.football.api-sports.io')
+        .set('x-rapidapi-key', this.API_KEY)
+    });
+  }
+
+  private getObservable(cachedEntry: CacheEntry): Observable<HttpEvent<ApiFootballResponse>> {
+    return new Observable<HttpEvent<ApiFootballResponse>>((observer) => {
+      observer.next(new HttpResponse<ApiFootballResponse>({
+        body: cachedEntry.data
+      }));
+      observer.complete();
+    });
+  }
+
+  private buildKey(request: HttpRequest<unknown>): string {
+    if (request.url.includes('standings')) {
+      const league: string = request.url.split('league=')[1].split('&')[0];
+      return `standings-${league}`;
+    } else {
+      return 'todo'
     }
   }
 
@@ -46,4 +87,27 @@ export class FootballApiInterceptor implements HttpInterceptor {
 
     throw new Error(message);
   }
+
+  private cacheResults(event: HttpEvent<unknown>): void {
+    if (event instanceof HttpResponse) {
+      const response: ApiFootballResponse = event['body'] as ApiFootballResponse;
+      const get: ApiFootballResponse['get'] = response.get;
+      if (get === 'standings') {
+        const standingsApiResponse: StandingsApiResponse = response as StandingsApiResponse;
+        const key: string = `standings-${standingsApiResponse.parameters.league}`;
+        const date: string = this.getDateOfToday();
+        const entry: CacheEntry = {
+          date,
+          data: response
+        };
+        localStorage.setItem(key, JSON.stringify(entry));
+      }
+    }
+  }
+
+  private getDateOfToday(): string {
+    const date: Date = new Date();
+    return date.toISOString().split('T')[0];
+  }
 }
+
