@@ -1,6 +1,6 @@
 import {StandingsApiResponse} from "../model/standings.model";
 
-export const england2023: StandingsApiResponse = {
+export const england2023: StandingsApiResponse = {// TODO Delete
   "get": "standings",
   "parameters": {"league": "39", "season": "2023"},
   "errors": [],

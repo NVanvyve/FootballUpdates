@@ -1,6 +1,6 @@
 import {FixturesApiResponse} from "../model/fixtures.model";
 
-export const tottenham2023: FixturesApiResponse = {
+export const tottenham2023: FixturesApiResponse = {// TODO Delete
   "get": "fixtures",
   "parameters": {"league": "39", "season": "2023", "team": "47", "last": "10", "timezone": "Europe/Brussels"},
   "errors": [],
