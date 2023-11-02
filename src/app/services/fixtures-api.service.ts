@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable, of} from "rxjs";
-import {tottenham2023} from "../fake-data/fixtures-api-tottenham";
+import {map, Observable} from "rxjs";
 import {FixturesApiResponse, FixturesResponse, FixtureTableElement, Team, TeamDetails} from "../model/fixtures.model";
 
 @Injectable({
@@ -17,7 +16,7 @@ export class FixturesApiService {
     const limit: number = 10
     const timeZone: string = `Europe/Brussels`;
     const url: string = `${this.baseUrl}?league=${leagueId}&season=${this.getCurrentSeason()}&team=${teamId}&last=${limit}&timezone=${timeZone}`;
-    return of(tottenham2023)
+    return this.http.get<FixturesApiResponse>(url);
   }
 
 

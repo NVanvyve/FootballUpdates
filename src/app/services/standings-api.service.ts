@@ -12,7 +12,9 @@ export class StandingsApiService {
 
   private readonly baseUrl: string = `https://v3.football.api-sports.io/standings`
 
-  constructor(private countryService: CountryService, private http: HttpClient) {
+  constructor(
+    private countryService: CountryService,
+    private http: HttpClient) {
   }
 
   private getStandings(country: FootballCountry['name']): Observable<StandingsApiResponse> {
