@@ -12,6 +12,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {LeagueTableComponent} from './components/league-details/league-table/league-table.component';
 import {LoaderComponent} from './components/loader/loader.component';
 import {MatTableModule} from "@angular/material/table";
+import {ErrorComponent} from './components/error/error.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {MatTableModule} from "@angular/material/table";
     LeagueDetailsComponent,
     NotFoundComponent,
     LeagueTableComponent,
-    LoaderComponent
+    LoaderComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

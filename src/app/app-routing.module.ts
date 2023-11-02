@@ -4,6 +4,7 @@ import {LeagueDetailsComponent} from "./components/league-details/league-details
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {leagueGuard} from "./guards/league.guard";
 import {defaultCountryGuard} from "./guards/default-country.guard";
+import {ErrorComponent} from "./components/error/error.component";
 
 const routerOptions: ExtraOptions = {
   useHash: true,
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'not-found',
     component: NotFoundComponent
+  },
+  {
+    path: 'error',
+    component: ErrorComponent
   },
   {
     path: ':country',
