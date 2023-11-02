@@ -13,11 +13,11 @@ import {FixtureTableElement, TeamDetails} from "../../model/fixtures.model";
   styleUrls: ['./team-result.component.sass']
 })
 export class TeamResultComponent implements OnInit {
+  // TODO Add a verification of the param
   isReady: boolean = false;
   tableData?: FixtureTableElement[];
-
-
-  // Add a verification of the param
+  teamName?: string;
+  teamLogo?: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +35,8 @@ export class TeamResultComponent implements OnInit {
           {
             next: (details: TeamDetails) => {
               this.tableData = details.table;
+              this.teamName = details.team.name;
+              this.teamLogo = details.team.image;
               this.isReady = true;
             },
             error: (error: Error) => {

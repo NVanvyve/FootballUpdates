@@ -1,3 +1,13 @@
-<foot-team-details-table
-  [data]="tableData!"
-></foot-team-details-table>
+<div *ngIf="isReady; else elseBlock">
+  <div>
+    <img src="{{teamLogo}}" alt="">
+    <h2>{{teamName}}</h2>
+  </div>
+  <foot-team-details-table
+    [data]="tableData!"
+  ></foot-team-details-table>
+</div>
+
+<ng-template #elseBlock>
+  <foot-loader></foot-loader>
+</ng-template>

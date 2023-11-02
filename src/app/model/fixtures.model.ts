@@ -5,7 +5,7 @@ interface Score {
   away: number | null
 }
 
-interface Team {
+export interface Team {
   id: number
   name: string
   logo: string
@@ -81,4 +81,8 @@ export interface FixtureTableElement {
 
 export interface TeamDetails {
   table: FixtureTableElement[]
+  team: {
+    name: string
+    image: string
+  }
 }

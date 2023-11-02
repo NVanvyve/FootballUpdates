@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, of} from "rxjs";
 import {tottenham2023} from "../fake-data/fixtures-api-tottenham";
-import {FixturesApiResponse, FixturesResponse, FixtureTableElement, TeamDetails} from "../model/fixtures.model";
+import {FixturesApiResponse, FixturesResponse, FixtureTableElement, Team, TeamDetails} from "../model/fixtures.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,23 +17,31 @@ export class FixturesApiService {
     const limit: number = 10
     const timeZone: string = `Europe/Brussels`;
     const url: string = `${this.baseUrl}?league=${leagueId}&season=${this.getCurrentSeason()}&team=${teamId}&last=${limit}&timezone=${timeZone}`;
-    console.log(url)
     return of(tottenham2023)
   }
 
 
   public getFixturesTeamId(teamId: number, leagueId: number): Observable<TeamDetails> {
     return this.getFixtures(teamId, leagueId).pipe(
-      map((fixturesApiResponse: FixturesApiResponse) => this.mapToTeamDetails(fixturesApiResponse)),
+      map((fixturesApiResponse: FixturesApiResponse) => this.mapToTeamDetails(fixturesApiResponse, teamId)),
     )
   }
 
-  private mapToTeamDetails(fixturesApiResponse: FixturesApiResponse): TeamDetails {
+  private mapToTeamDetails(fixturesApiResponse: FixturesApiResponse, teamId: number): TeamDetails {
     const response: FixturesResponse[] = fixturesApiResponse.response
     const teamDetails: TeamDetails = {
-      table: response.map((fixture) => this.toTableElement(fixture))
+      table: response.map((fixture) => this.toTableElement(fixture)),
+      team: this.getTeam(response, teamId)
     }
     return teamDetails
+  }
+
+  private getTeam(response: FixturesResponse[], teamId: number): TeamDetails["team"] {
+    const team: Team = response[0].teams.home.id === teamId ? response[0].teams.home : response[0].teams.away;
+    return {
+      name: team.name,
+      image: team.logo
+    }
   }
 
   private getCurrentSeason(): number {
