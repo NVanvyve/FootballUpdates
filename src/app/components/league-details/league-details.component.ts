@@ -5,6 +5,7 @@ import {FootballCountry} from "../../model/football-country.model";
 import {CountryService} from "../../services/country.service";
 import {StandingsTableElement} from "../../model/standings.model";
 import {StandingsApiService} from "../../services/standings-api.service";
+import {ErrorService} from "../../services/error.service";
 
 @Component({
   selector: 'foot-league-details',
@@ -20,7 +21,8 @@ export class LeagueDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private countryService: CountryService,
-    private standingsApiService: StandingsApiService
+    private standingsApiService: StandingsApiService,
+    private errorService: ErrorService
   ) {
   }
 
@@ -35,13 +37,13 @@ export class LeagueDetailsComponent implements OnInit {
               this.isReady = true;
             },
             error: (error: Error) => {
-              console.error(error);
+              this.errorService.handleError(error)
             }
           });
         }
       },
       error: (error: Error) => {
-        console.error(error);
+        this.errorService.handleError(error)
       }
     })
   }
