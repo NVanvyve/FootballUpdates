@@ -8,6 +8,7 @@ export interface ApiFootballResponse {
   }
 }
 
-type ResponseError = {
+export type ResponseError = Array<unknown> | ErrorObject
+export type ErrorObject = {
   [code: string]: string;
 }

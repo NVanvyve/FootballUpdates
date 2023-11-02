@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {StandingsApiResponse, StandingsResponse, StandingsTableElement, TeamStats} from "../model/standings.model";
-import {map, Observable, tap} from "rxjs";
+import {map, Observable} from "rxjs";
 import {FootballCountry} from "../model/football-country.model";
 import {CountryService} from "./country.service";
-import {FootballApiService} from "./football-api.service";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StandingsApiService {
 
-  private readonly baseUrl: string = 'standings';
+  private readonly baseUrl: string = `https://v3.football.api-sports.io/standings`
 
-  constructor(private countryService: CountryService, private footballApiService: FootballApiService) {
+  constructor(private countryService: CountryService, private http: HttpClient) {
   }
 
   private getStandings(country: FootballCountry['name']): Observable<StandingsApiResponse> {
@@ -21,19 +21,7 @@ export class StandingsApiService {
 
     const url: string = `${this.baseUrl}?league=${leagueId.toString()}&season=${season.toString()}`;
 
-    return this.footballApiService.get<StandingsApiResponse>(url).pipe(
-      tap((response: StandingsApiResponse) => {
-          if (response.errors) {
-            this.throwError(response);
-          }
-        }
-      ));
-  }
-
-  private throwError(response: StandingsApiResponse): void {
-    const code: string = Object.keys(response.errors)[0];
-    const message: string = response.errors[code];
-    throw new Error(`${code} : ${message}`);
+    return this.http.get<StandingsApiResponse>(url);
   }
 
   private getLeagueId(country: string): number {
@@ -59,11 +47,11 @@ export class StandingsApiService {
     }
     const teamStats: TeamStats[] = find.league.standings[0];
     return teamStats
-      .map((teamStats: TeamStats) => this.toTableEmelent(teamStats))
+      .map((teamStats: TeamStats) => this.toTableElement(teamStats))
       .sort((a: StandingsTableElement, b: StandingsTableElement) => a.position - b.position);
   }
 
-  private toTableEmelent(teamStats: TeamStats): StandingsTableElement {
+  private toTableElement(teamStats: TeamStats): StandingsTableElement {
     return {
       position: teamStats.rank,
       teamId: teamStats.team.id,

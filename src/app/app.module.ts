@@ -13,7 +13,8 @@ import {LeagueTableComponent} from './components/league-details/league-table/lea
 import {LoaderComponent} from './components/loader/loader.component';
 import {MatTableModule} from "@angular/material/table";
 import {ErrorComponent} from './components/error/error.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {FootballApiInterceptor} from "./interceptors/football-api.interceptor";
 
 
 @NgModule({
@@ -35,7 +36,13 @@ import {HttpClientModule} from "@angular/common/http";
     MatTableModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FootballApiInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
