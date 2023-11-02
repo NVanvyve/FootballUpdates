@@ -13,7 +13,7 @@
     </td>
   </ng-container>
   <ng-container *ngFor="let column of ['name-home','name-away']" [matColumnDef]="column">
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" [ngClass]="{'bold' : (element[toCamelCase(column)]===teamName)}">
       {{element[toCamelCase(column)]}}
     </td>
   </ng-container>

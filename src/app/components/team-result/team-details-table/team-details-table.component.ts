@@ -8,6 +8,7 @@ import {FixtureTableElement} from "../../../model/fixtures.model";
 })
 export class TeamDetailsTableComponent {
   @Input({required: true}) data!: FixtureTableElement[];
+  @Input({required: true}) teamName!: string;
 
   displayedColumns: string[] = [
     'image-home',
