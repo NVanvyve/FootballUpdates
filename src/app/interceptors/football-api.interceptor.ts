@@ -4,6 +4,7 @@ import {Observable, tap} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {ApiFootballResponse, ErrorObject, ResponseError} from "../model/api-football-response.model";
 import {StandingsApiResponse} from "../model/standings.model";
+import {FixturesApiResponse} from "../model/fixtures.model";
 
 interface CacheEntry {
   date: string
@@ -58,11 +59,12 @@ export class FootballApiInterceptor implements HttpInterceptor {
   }
 
   private buildKey(request: HttpRequest<unknown>): string {
+    const league: string = request.url.split('league=')[1].split('&')[0];
     if (request.url.includes('standings')) {
-      const league: string = request.url.split('league=')[1].split('&')[0];
       return `standings-${league}`;
     } else {
-      return 'todo'
+      const team: string = request.url.split('team=')[1].split('&')[0];
+      return `fixtures-${league}-${team}`;
     }
   }
 
@@ -92,16 +94,20 @@ export class FootballApiInterceptor implements HttpInterceptor {
     if (event instanceof HttpResponse) {
       const response: ApiFootballResponse = event['body'] as ApiFootballResponse;
       const get: ApiFootballResponse['get'] = response.get;
+      let key: string;
       if (get === 'standings') {
         const standingsApiResponse: StandingsApiResponse = response as StandingsApiResponse;
-        const key: string = `standings-${standingsApiResponse.parameters.league}`;
-        const date: string = this.getDateOfToday();
-        const entry: CacheEntry = {
-          date,
-          data: response
-        };
-        localStorage.setItem(key, JSON.stringify(entry));
+        key = `standings-${standingsApiResponse.parameters.league}`;
+      } else {
+        const fixturesApiResponse: FixturesApiResponse = response as FixturesApiResponse;
+        key = `fixtures-${fixturesApiResponse.parameters.league}-${fixturesApiResponse.parameters.team}`;
       }
+      const date: string = this.getDateOfToday();
+      const entry: CacheEntry = {
+        date,
+        data: response
+      };
+      localStorage.setItem(key, JSON.stringify(entry));
     }
   }
 
