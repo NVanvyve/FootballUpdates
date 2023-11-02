@@ -1,21 +1,47 @@
 import {Injectable} from '@angular/core';
 import {StandingsApiResponse, StandingsResponse, StandingsTableElement, TeamStats} from "../model/standings.model";
-import {delay, map, Observable, of} from "rxjs";
-import {england2023} from "../fake-data/standing-api-england-2023";
+import {map, Observable, tap} from "rxjs";
 import {FootballCountry} from "../model/football-country.model";
 import {CountryService} from "./country.service";
+import {FootballApiService} from "./football-api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StandingsApiService {
-  constructor(private countryService: CountryService) {
+
+  private readonly baseUrl: string = 'standings';
+
+  constructor(private countryService: CountryService, private footballApiService: FootballApiService) {
   }
 
-  private getStandings(_country: FootballCountry['name']): Observable<StandingsApiResponse> {
-    // const _leagueId = this.countryService.getCountry(country).leagueId;
-    // const _season = new Date().getFullYear();
-    return of(england2023).pipe(delay(1000));
+  private getStandings(country: FootballCountry['name']): Observable<StandingsApiResponse> {
+    const leagueId: number = this.getLeagueId(country);
+    const season: number = this.getCurrentSeason();
+
+    const url: string = `${this.baseUrl}?league=${leagueId.toString()}&season=${season.toString()}`;
+
+    return this.footballApiService.get<StandingsApiResponse>(url).pipe(
+      tap((response: StandingsApiResponse) => {
+          if (response.errors) {
+            this.throwError(response);
+          }
+        }
+      ));
+  }
+
+  private throwError(response: StandingsApiResponse): void {
+    const code: string = Object.keys(response.errors)[0];
+    const message: string = response.errors[code];
+    throw new Error(`${code} : ${message}`);
+  }
+
+  private getLeagueId(country: string): number {
+    return this.countryService.getCountry(country).leagueId;
+  }
+
+  private getCurrentSeason(): number {
+    return new Date().getFullYear();
   }
 
   public getStandingsByCountry(country: FootballCountry['name']): Observable<StandingsTableElement[]> {

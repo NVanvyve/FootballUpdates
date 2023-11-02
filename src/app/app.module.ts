@@ -13,6 +13,7 @@ import {LeagueTableComponent} from './components/league-details/league-table/lea
 import {LoaderComponent} from './components/loader/loader.component';
 import {MatTableModule} from "@angular/material/table";
 import {ErrorComponent} from './components/error/error.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {ErrorComponent} from './components/error/error.component';
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
-    MatTableModule
+    MatTableModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
