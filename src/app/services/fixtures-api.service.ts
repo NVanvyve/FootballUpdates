@@ -28,11 +28,10 @@ export class FixturesApiService {
 
   private mapToTeamDetails(fixturesApiResponse: FixturesApiResponse, teamId: number): TeamDetails {
     const response: FixturesResponse[] = fixturesApiResponse.response
-    const teamDetails: TeamDetails = {
+    return {
       table: response.map((fixture) => this.toTableElement(fixture)),
       team: this.getTeam(response, teamId)
     }
-    return teamDetails
   }
 
   private getTeam(response: FixturesResponse[], teamId: number): TeamDetails["team"] {

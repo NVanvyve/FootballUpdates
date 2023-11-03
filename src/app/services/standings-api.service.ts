@@ -17,12 +17,17 @@ export class StandingsApiService {
     private http: HttpClient) {
   }
 
+  getStandingsByCountry(country: FootballCountry['name']): Observable<StandingsTableElement[]> {
+    return this.getStandings(country).pipe(
+      map((standingsApiResponse: StandingsApiResponse) =>
+        this.mapToTableElements(standingsApiResponse, country)),
+    );
+  }
+
   private getStandings(country: FootballCountry['name']): Observable<StandingsApiResponse> {
     const leagueId: number = this.getLeagueId(country);
     const season: number = this.getCurrentSeason();
-
     const url: string = `${this.baseUrl}?league=${leagueId.toString()}&season=${season.toString()}`;
-
     return this.http.get<StandingsApiResponse>(url);
   }
 
@@ -32,13 +37,6 @@ export class StandingsApiService {
 
   private getCurrentSeason(): number {
     return new Date().getFullYear();
-  }
-
-  public getStandingsByCountry(country: FootballCountry['name']): Observable<StandingsTableElement[]> {
-    return this.getStandings(country).pipe(
-      map((standingsApiResponse: StandingsApiResponse) =>
-        this.mapToTableElements(standingsApiResponse, country)),
-    );
   }
 
   private mapToTableElements(standingsApiResponse: StandingsApiResponse, country: FootballCountry["name"]): StandingsTableElement[] {
@@ -66,5 +64,18 @@ export class StandingsApiService {
       goalDifference: teamStats.goalsDiff,
       points: teamStats.points
     }
+  }
+
+  isTeamInLeague(countryName: string, teamId: number): Observable<boolean> {
+    return this.getStandings(countryName).pipe(
+      map((standingsApiResponse: StandingsApiResponse) => this.mapToLeagueIds(standingsApiResponse)),
+      map((leagueIds: number[]) => leagueIds.includes(teamId))
+    );
+  }
+
+  private mapToLeagueIds(standingsApiResponse: StandingsApiResponse): number[] {
+    const leagues: StandingsResponse['league'][] = standingsApiResponse.response.map((response: StandingsResponse) => response.league);
+    const teamStats: TeamStats[] = leagues.flatMap((league: StandingsResponse['league']) => league.standings[0]);
+    return teamStats.map((teamStat: TeamStats) => teamStat.team.id);
   }
 }

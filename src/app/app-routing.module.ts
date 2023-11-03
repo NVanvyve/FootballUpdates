@@ -6,6 +6,7 @@ import {leagueGuard} from "./guards/league.guard";
 import {defaultCountryGuard} from "./guards/default-country.guard";
 import {ErrorComponent} from "./components/error/error.component";
 import {TeamResultComponent} from "./components/team-result/team-result.component";
+import {teamGuard} from "./guards/team.guard";
 
 const routerOptions: ExtraOptions = {
   useHash: true,
@@ -36,7 +37,8 @@ const routes: Routes = [
       },
       {
         path: ':teamId',
-        component: TeamResultComponent
+        component: TeamResultComponent,
+        canActivate: [teamGuard],
       }
     ]
   },

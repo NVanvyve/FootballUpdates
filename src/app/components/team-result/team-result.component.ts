@@ -13,7 +13,6 @@ import {FixtureTableElement, TeamDetails} from "../../model/fixtures.model";
   styleUrls: ['./team-result.component.sass']
 })
 export class TeamResultComponent implements OnInit {
-  // TODO Add a verification of the param
   isReady: boolean = false;
   tableData?: FixtureTableElement[];
   teamName?: string;
