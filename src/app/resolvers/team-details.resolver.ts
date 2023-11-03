@@ -6,9 +6,9 @@ import {FootballCountry} from "../model/football-country.model";
 import {FixturesApiService} from "../services/fixtures-api.service";
 
 export const teamDetailsResolver: ResolveFn<TeamDetails> = (route, _state) => {
-  const country: string = route.paramMap.get('country')!
+  const country: string = route.paramMap.get('country')! // Present and valid => Guaranteed by the guard
   const leagueId: number = inject(CountryService).getCountry(country).leagueId;
-  const teamId: string = route.paramMap.get('teamId')!;
+  const teamId: string = route.paramMap.get('teamId')!; // Present and valid => Guaranteed by the guard
   const params: RouteParams = {
     leagueId,
     teamId: Number.parseInt(teamId)

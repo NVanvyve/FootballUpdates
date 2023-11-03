@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [defaultCountryGuard],
-    component: NotFoundComponent // All paths should be redirected to the default country
+    component: NotFoundComponent // Guard will redirect to default country. NotFoundComponent will never be shown.
   },
   {
     path: 'not-found',
