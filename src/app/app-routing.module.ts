@@ -12,7 +12,7 @@ import {teamDetailsResolver} from "./resolvers/team-details.resolver";
 
 const routerOptions: ExtraOptions = {
   useHash: true,
-  enableTracing: true,
+  enableTracing: false,
 };
 
 const routes: Routes = [
