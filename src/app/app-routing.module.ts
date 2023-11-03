@@ -7,6 +7,7 @@ import {defaultCountryGuard} from "./guards/default-country.guard";
 import {ErrorComponent} from "./components/error/error.component";
 import {TeamResultComponent} from "./components/team-result/team-result.component";
 import {teamGuard} from "./guards/team.guard";
+import {standingResolver} from "./resolvers/standing.resolver";
 
 const routerOptions: ExtraOptions = {
   useHash: true,
@@ -34,6 +35,9 @@ const routes: Routes = [
       {
         path: '',
         component: LeagueDetailsComponent,
+        resolve: {
+          tableData: standingResolver
+        }
       },
       {
         path: ':teamId',

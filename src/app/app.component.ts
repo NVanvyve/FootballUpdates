@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Event, NavigationEnd, NavigationStart, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'Football Updates';
+  showLoader: boolean = false
+
+  constructor(private router: Router) {
+    router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        this.showLoader = true;
+      } else if (event instanceof NavigationEnd) {
+        this.showLoader = false;
+      }
+    });
+  }
 }

@@ -1,4 +1,4 @@
-<div *ngIf="isReady; else elseBlock">
+<div>
   <div>
     <img src="{{teamLogo}}" alt="">
     <h2>{{teamName}}</h2>
@@ -9,7 +9,3 @@
   ></foot-team-details-table>
   <a mat-raised-button [routerLink]="'../'">Back</a>
 </div>
-
-<ng-template #elseBlock>
-  <foot-loader></foot-loader>
-</ng-template>

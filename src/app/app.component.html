@@ -1,5 +1,8 @@
 <div class="app">
   <h1>{{title}}</h1>
   <foot-toolbar></foot-toolbar>
-  <router-outlet></router-outlet>
+  <foot-loader *ngIf="showLoader"></foot-loader>
+  <div [hidden]="showLoader">
+    <router-outlet></router-outlet>
+  </div>
 </div>

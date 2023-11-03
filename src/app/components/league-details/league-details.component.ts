@@ -1,10 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {map, Observable, tap} from "rxjs";
-import {FootballCountry} from "../../model/football-country.model";
-import {CountryService} from "../../services/country.service";
 import {StandingsTableElement} from "../../model/standings.model";
-import {StandingsApiService} from "../../services/standings-api.service";
 import {ErrorService} from "../../services/error.service";
 
 @Component({
@@ -12,54 +8,21 @@ import {ErrorService} from "../../services/error.service";
   templateUrl: './league-details.component.html',
   styleUrls: ['./league-details.component.sass']
 })
-export class LeagueDetailsComponent implements OnInit {
+export class LeagueDetailsComponent {
 
-  footballCountry?: FootballCountry;
-  isReady: boolean = false;
   tableData?: StandingsTableElement[];
 
   constructor(
     private route: ActivatedRoute,
-    private countryService: CountryService,
-    private standingsApiService: StandingsApiService,
     private errorService: ErrorService
   ) {
-  }
-
-  ngOnInit(): void {
-    this.getCountryFromRoute().subscribe({
-      next: (country: string) => {
-        this.footballCountry = this.countryService.getCountry(country);
-        if (this.footballCountry) {
-          this.standingsApiService.getStandingsByCountry(this.footballCountry.name).subscribe({
-            next: (tableData: StandingsTableElement[]) => {
-              this.tableData = tableData;
-              this.isReady = true;
-            },
-            error: (error: Error) => {
-              this.errorService.handleError(error)
-            }
-          });
-        }
+    this.route.paramMap.subscribe({
+      next: (_: ParamMap) => {
+        this.tableData = this.route.snapshot.data['tableData'] as StandingsTableElement[];
       },
       error: (error: Error) => {
         this.errorService.handleError(error)
       }
-    })
-  }
-
-  private getCountryFromRoute(): Observable<string> {
-    return this.route.paramMap.pipe(
-      tap(() => {
-        this.isReady = false;
-      }),
-      map((paramMap: ParamMap) => {
-          const country: string | null = paramMap.get('country');
-          if (!country) {
-            throw new Error('Country not found in route');
-          }
-          return country;
-        }
-      ));
+    });
   }
 }
