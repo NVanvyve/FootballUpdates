@@ -5,7 +5,7 @@ import {CountryService} from "../services/country.service";
 import {FootballCountry} from "../model/football-country.model";
 import {FixturesApiService} from "../services/fixtures-api.service";
 
-export const teamDetailsResolver: ResolveFn<TeamDetails> = (route, state) => {
+export const teamDetailsResolver: ResolveFn<TeamDetails> = (route, _state) => {
   const country: string = route.paramMap.get('country')!
   const leagueId: number = inject(CountryService).getCountry(country).leagueId;
   const teamId: string = route.paramMap.get('teamId')!;
