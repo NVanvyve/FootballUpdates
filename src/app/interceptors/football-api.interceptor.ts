@@ -24,7 +24,7 @@ export class FootballApiInterceptor implements HttpInterceptor {
         const cachedEntry: CacheEntry = JSON.parse(item) as CacheEntry
         const date: string = this.getDateOfToday();
         if (cachedEntry.date === date) {
-          return this.getObservable(cachedEntry);
+          return this.getObservable(cachedEntry)
         } else {
           localStorage.removeItem(key); // Result is outdated
         }

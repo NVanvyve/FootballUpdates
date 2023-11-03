@@ -8,6 +8,7 @@ import {ErrorComponent} from "./components/error/error.component";
 import {TeamResultComponent} from "./components/team-result/team-result.component";
 import {teamGuard} from "./guards/team.guard";
 import {standingResolver} from "./resolvers/standing.resolver";
+import {teamDetailsResolver} from "./resolvers/team-details.resolver";
 
 const routerOptions: ExtraOptions = {
   useHash: true,
@@ -43,6 +44,9 @@ const routes: Routes = [
         path: ':teamId',
         component: TeamResultComponent,
         canActivate: [teamGuard],
+        resolve: {
+          teamDetails: teamDetailsResolver
+        }
       }
     ]
   },
