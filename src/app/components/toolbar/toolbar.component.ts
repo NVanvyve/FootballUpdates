@@ -12,4 +12,8 @@ export class ToolbarComponent {
 
   constructor(private countryService: CountryService) {
   }
+
+  getUrl(leagueId: number): string {
+    return `https://media-4.api-sports.io/football/leagues/${leagueId}.png`;
+  }
 }

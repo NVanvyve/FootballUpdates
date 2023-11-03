@@ -4,11 +4,16 @@
      routerLinkActive="active-link"
      [routerLink]="'/'+(footballCountry.name | lowercase)"
      mat-button>
-    <div class="country">
-      {{footballCountry.name | titlecase}}
-    </div>
-    <div class="league">
-      {{footballCountry.league | titlecase}}
+    <div>
+      <img src="{{getUrl(footballCountry.leagueId)}}">
+      <div>
+        <div class="country">
+          {{footballCountry.name | titlecase}}
+        </div>
+        <div class="league">
+          {{footballCountry.league | titlecase}}
+        </div>
+      </div>
     </div>
   </a>
 </mat-toolbar>
