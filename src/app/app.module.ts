@@ -13,7 +13,7 @@ import {LeagueTableComponent} from './components/league-details/league-table/lea
 import {LoaderComponent} from './components/loader/loader.component';
 import {MatTableModule} from "@angular/material/table";
 import {ErrorComponent} from './components/error/error.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {FootballApiInterceptor} from "./interceptors/football-api.interceptor";
 import {TeamResultComponent} from './components/team-result/team-result.component';
 import {TeamDetailsTableComponent} from './components/team-result/team-details-table/team-details-table.component';
@@ -31,23 +31,21 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
     TeamResultComponent,
     TeamDetailsTableComponent
   ],
-  imports: [
-    BrowserModule,
+  bootstrap: [AppComponent],
+  imports: [BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
-    MatTableModule,
-    HttpClientModule
-  ],
+    MatTableModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FootballApiInterceptor,
       multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
+    },
+    provideHttpClient(withInterceptorsFromDi())
+  ]
 })
 export class AppModule {
 }
