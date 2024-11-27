@@ -107,6 +107,7 @@ export class FootballApiInterceptor implements HttpInterceptor {
         date,
         data: response
       };
+      // TODO : Do not cache if the response is an error, or empty
       localStorage.setItem(key, JSON.stringify(entry));
     }
   }

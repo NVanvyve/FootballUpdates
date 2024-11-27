@@ -10,23 +10,37 @@ export class CountryService {
       name: 'england',
       league: 'Premier League',
       leagueId: 39
-    }, {
+    },
+    {
       name: 'spain',
       league: 'La Liga',
       leagueId: 140
-    }, {
+    },
+    {
       name: 'france',
       league: 'Ligue 1',
       leagueId: 61
-    }, {
+    },
+    {
       name: 'germany',
       league: 'Bundesliga',
       leagueId: 78
-    }, {
+    },
+    {
       name: 'italy',
       league: 'Serie A',
       leagueId: 135
-    }
+    },
+    // {
+    //   name: 'belgium',
+    //   league: 'Jupiler League',
+    //   leagueId: 144
+    // },
+    // {
+    //   name: 'russia',
+    //   league: 'Premier League',
+    //   leagueId: 235
+    // }
   ];
 
   isAValidCountry(country: string): boolean {
