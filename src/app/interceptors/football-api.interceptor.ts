@@ -59,12 +59,13 @@ export class FootballApiInterceptor implements HttpInterceptor {
   }
 
   private buildKey(request: HttpRequest<unknown>): string {
-    const league: string = request.url.split('league=')[1].split('&')[0];
+    const league: string = request.url.split('league=')[1]?.split('&')[0] || '';
+    const season: string = request.url.split('season=')[1]?.split('&')[0] || '';
     if (request.url.includes('standings')) {
-      return `standings-${league}`;
+      return `standings-${league}-${season}`;
     } else {
       const team: string = request.url.split('team=')[1].split('&')[0];
-      return `fixtures-${league}-${team}`;
+      return `fixtures-${league}-${team}-${season}`;
     }
   }
 
