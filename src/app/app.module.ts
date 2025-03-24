@@ -24,7 +24,6 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
     AppComponent,
     ToolbarComponent,
     LeagueDetailsComponent,
-    NotFoundComponent,
     LeagueTableComponent,
     ErrorComponent,
     TeamResultComponent,
