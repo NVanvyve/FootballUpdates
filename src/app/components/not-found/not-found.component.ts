@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {NgOptimizedImage} from "@angular/common";
 import {MatAnchor} from "@angular/material/button";
 
 @Component({
@@ -9,7 +8,6 @@ import {MatAnchor} from "@angular/material/button";
   styleUrls: ['./not-found.component.sass'],
   imports: [
     RouterLink,
-    NgOptimizedImage,
     MatAnchor,
   ],
   standalone: true
