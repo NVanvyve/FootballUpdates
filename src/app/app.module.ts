@@ -8,11 +8,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {LeagueDetailsComponent} from './components/league-details/league-details.component';
-import {NotFoundComponent} from './components/not-found/not-found.component';
 import {LeagueTableComponent} from './components/league-details/league-table/league-table.component';
 import {LoaderComponent} from './components/loader/loader.component';
 import {MatTableModule} from "@angular/material/table";
-import {ErrorComponent} from './components/error/error.component';
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {FootballApiInterceptor} from "./interceptors/football-api.interceptor";
 import {TeamResultComponent} from './components/team-result/team-result.component';
@@ -24,7 +22,6 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
     AppComponent,
     LeagueDetailsComponent,
     LeagueTableComponent,
-    ErrorComponent,
     TeamResultComponent,
     TeamDetailsTableComponent
   ],
