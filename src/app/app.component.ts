@@ -4,6 +4,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {ToolbarComponent} from "./components/toolbar/toolbar.component";
 import {LoaderComponent} from "./components/loader/loader.component";
 import {NgIf} from "@angular/common";
+import {SeasonService} from "./services/season.service";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ import {NgIf} from "@angular/common";
   standalone: true
 })
 export class AppComponent {
-  title = 'Football Updates';
+  title = 'Football Updates - Season ' + inject(SeasonService).getSeason();
   showLoader: boolean = false
 
   private destroyRef : DestroyRef = inject(DestroyRef);
