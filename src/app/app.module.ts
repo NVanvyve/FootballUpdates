@@ -22,7 +22,6 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent,
     LeagueDetailsComponent,
     LeagueTableComponent,
     ErrorComponent,
@@ -35,7 +34,7 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
-    MatTableModule, LoaderComponent],
+    MatTableModule, LoaderComponent, ToolbarComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
