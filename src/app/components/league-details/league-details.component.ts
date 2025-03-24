@@ -3,12 +3,16 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {StandingsTableElement} from "../../model/standings.model";
 import {ErrorService} from "../../services/error.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {LeagueTableComponent} from "./league-table/league-table.component";
 
 @Component({
-    selector: 'foot-league-details',
-    templateUrl: './league-details.component.html',
-    styleUrls: ['./league-details.component.sass'],
-    standalone: false
+  selector: 'foot-league-details',
+  templateUrl: './league-details.component.html',
+  styleUrls: ['./league-details.component.sass'],
+  imports: [
+    LeagueTableComponent
+  ],
+  standalone: true
 })
 export class LeagueDetailsComponent {
 
