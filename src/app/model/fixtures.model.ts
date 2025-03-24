@@ -77,6 +77,7 @@ export interface FixtureTableElement {
   },
   nameAway: string;
   imageAway: string;
+  timestamp: number;
 }
 
 export interface TeamDetails {

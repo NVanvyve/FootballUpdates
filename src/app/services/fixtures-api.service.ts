@@ -51,7 +51,8 @@ export class FixturesApiService {
         away: this.getScore(fixture.goals.away)
       },
       nameAway: fixture.teams.away.name,
-      imageAway: fixture.teams.away.logo
+      imageAway: fixture.teams.away.logo,
+      timestamp: fixture.fixture.timestamp
     }
   }
 

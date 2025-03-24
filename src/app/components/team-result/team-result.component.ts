@@ -31,7 +31,9 @@ export class TeamResultComponent {
     route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (_: ParamMap) => {
         const details: TeamDetails = route.snapshot.data['teamDetails'] as TeamDetails;
-        this.tableData = details.table;
+        this.tableData = details.table
+          .sort((a, b) => a.timestamp - b.timestamp)
+          .slice(0, 10)
         this.teamName = details.team.name;
         this.teamLogo = details.team.image;
       },
