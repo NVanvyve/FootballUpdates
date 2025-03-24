@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {StandingsApiResponse, StandingsResponse, StandingsTableElement, TeamStats} from "../model/standings.model";
 import {map, Observable} from "rxjs";
 import {FootballCountry} from "../model/football-country.model";
 import {CountryService} from "./country.service";
 import {HttpClient} from "@angular/common/http";
+import {SeasonService} from "./season.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,9 @@ export class StandingsApiService {
 
   private readonly baseUrl: string = `https://v3.football.api-sports.io/standings`
 
-  constructor(
-    private countryService: CountryService,
-    private http: HttpClient) {
-  }
+  private countryService: CountryService = inject(CountryService)
+  private http: HttpClient = inject(HttpClient)
+  private seasonService: SeasonService = inject(SeasonService)
 
   getStandingsByCountry(country: FootballCountry['name']): Observable<StandingsTableElement[]> {
     return this.getStandings(country).pipe(
@@ -26,17 +26,13 @@ export class StandingsApiService {
 
   private getStandings(country: FootballCountry['name']): Observable<StandingsApiResponse> {
     const leagueId: number = this.getLeagueId(country);
-    const season: number = this.getCurrentSeason();
+    const season: number = this.seasonService.getSeason();
     const url: string = `${this.baseUrl}?league=${leagueId.toString()}&season=${season.toString()}`;
     return this.http.get<StandingsApiResponse>(url);
   }
 
   private getLeagueId(country: string): number {
     return this.countryService.getCountry(country).leagueId;
-  }
-
-  private getCurrentSeason(): number {
-    return new Date().getFullYear();
   }
 
   private mapToTableElements(standingsApiResponse: StandingsApiResponse, country: FootballCountry["name"]): StandingsTableElement[] {

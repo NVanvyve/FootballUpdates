@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {FixturesApiResponse, FixturesResponse, FixtureTableElement, Team, TeamDetails} from "../model/fixtures.model";
+import {SeasonService} from "./season.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,13 @@ import {FixturesApiResponse, FixturesResponse, FixtureTableElement, Team, TeamDe
 export class FixturesApiService {
   private readonly baseUrl: string = `https://v3.football.api-sports.io/fixtures`
 
-  constructor(private http: HttpClient) {
-  }
+  private http: HttpClient = inject(HttpClient)
+  private seasonService: SeasonService = inject(SeasonService)
 
   private getFixtures(teamId: number, leagueId: number): Observable<FixturesApiResponse> {
     const limit: number = 10
     const timeZone: string = `Europe/Brussels`;
-    const url: string = `${this.baseUrl}?league=${leagueId}&season=${this.getCurrentSeason()}&team=${teamId}&last=${limit}&timezone=${timeZone}`;
+    const url: string = `${this.baseUrl}?league=${leagueId}&season=${this.seasonService.getSeason()}&team=${teamId}&last=${limit}&timezone=${timeZone}`;
     return this.http.get<FixturesApiResponse>(url);
   }
 
@@ -40,10 +41,6 @@ export class FixturesApiService {
       name: team.name,
       image: team.logo
     }
-  }
-
-  private getCurrentSeason(): number {
-    return new Date().getFullYear();
   }
 
   private toTableElement(fixture: FixturesResponse): FixtureTableElement {
