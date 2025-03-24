@@ -3,8 +3,6 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from
 import {Observable, tap} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {ApiFootballResponse, ErrorObject, ResponseError} from "../model/api-football-response.model";
-import {StandingsApiResponse} from "../model/standings.model";
-import {FixturesApiResponse} from "../model/fixtures.model";
 
 interface CacheEntry {
   date: string
@@ -34,7 +32,7 @@ export class FootballApiInterceptor implements HttpInterceptor {
         tap((event: HttpEvent<unknown>) => {
           // Format the error message
           this.handleErrorInApiResponse(event);
-          this.cacheResults(event);
+          this.cacheResults(event, request);
         }));
     } else {
       return next.handle(request);
@@ -59,8 +57,8 @@ export class FootballApiInterceptor implements HttpInterceptor {
   }
 
   private buildKey(request: HttpRequest<unknown>): string {
-    const league: string = request.url.split('league=')[1]?.split('&')[0] || '';
-    const season: string = request.url.split('season=')[1]?.split('&')[0] || '';
+    const league: string = request.url.split('league=')[1]?.split('&')[0];
+    const season: string = request.url.split('season=')[1]?.split('&')[0];
     if (request.url.includes('standings')) {
       return `standings-${league}-${season}`;
     } else {
@@ -91,18 +89,10 @@ export class FootballApiInterceptor implements HttpInterceptor {
     throw new Error(message);
   }
 
-  private cacheResults(event: HttpEvent<unknown>): void {
+  private cacheResults(event: HttpEvent<unknown>, request: HttpRequest<unknown>): void {
     if (event instanceof HttpResponse) {
       const response: ApiFootballResponse = event['body'] as ApiFootballResponse;
-      const get: ApiFootballResponse['get'] = response.get;
-      let key: string;
-      if (get === 'standings') {
-        const standingsApiResponse: StandingsApiResponse = response as StandingsApiResponse;
-        key = `standings-${standingsApiResponse.parameters.league}`;
-      } else {
-        const fixturesApiResponse: FixturesApiResponse = response as FixturesApiResponse;
-        key = `fixtures-${fixturesApiResponse.parameters.league}-${fixturesApiResponse.parameters.team}`;
-      }
+      const key: string = this.buildKey(request)
       const date: string = this.getDateOfToday();
       const entry: CacheEntry = {
         date,
