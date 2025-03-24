@@ -21,7 +21,6 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
   declarations: [
     AppComponent,
     LeagueDetailsComponent,
-    LeagueTableComponent,
     TeamResultComponent,
   ],
   bootstrap: [AppComponent],
@@ -30,7 +29,7 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
-    MatTableModule, LoaderComponent, ToolbarComponent, TeamDetailsTableComponent],
+    MatTableModule, LoaderComponent, ToolbarComponent, TeamDetailsTableComponent, LeagueTableComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
