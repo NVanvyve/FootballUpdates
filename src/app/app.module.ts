@@ -26,7 +26,6 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
     LeagueDetailsComponent,
     NotFoundComponent,
     LeagueTableComponent,
-    LoaderComponent,
     ErrorComponent,
     TeamResultComponent,
     TeamDetailsTableComponent
@@ -37,7 +36,7 @@ import {TeamDetailsTableComponent} from './components/team-result/team-details-t
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
-    MatTableModule],
+    MatTableModule, LoaderComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
