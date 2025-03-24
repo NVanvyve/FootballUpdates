@@ -3,9 +3,10 @@ import {FootballCountry} from "../../model/football-country.model";
 import {CountryService} from "../../services/country.service";
 
 @Component({
-  selector: 'foot-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.sass']
+    selector: 'foot-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.sass'],
+    standalone: false
 })
 export class ToolbarComponent {
   footballCountries: FootballCountry[] = this.countryService.footballCountries;

@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {ErrorService} from "../../services/error.service";
 
 @Component({
-  selector: 'foot-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.sass']
+    selector: 'foot-error',
+    templateUrl: './error.component.html',
+    styleUrls: ['./error.component.sass'],
+    standalone: false
 })
 export class ErrorComponent implements OnInit {
   private _error: Error | undefined;

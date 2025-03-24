@@ -3,9 +3,10 @@ import {Event, NavigationCancel, NavigationEnd, NavigationStart, Router} from '@
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.sass'],
+    standalone: false
 })
 export class AppComponent {
   title = 'Football Updates';

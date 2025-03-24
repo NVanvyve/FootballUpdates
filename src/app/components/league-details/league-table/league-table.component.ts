@@ -7,9 +7,10 @@ interface ColumnDefinition {
 }
 
 @Component({
-  selector: 'foot-league-table',
-  templateUrl: './league-table.component.html',
-  styleUrls: ['./league-table.component.sass']
+    selector: 'foot-league-table',
+    templateUrl: './league-table.component.html',
+    styleUrls: ['./league-table.component.sass'],
+    standalone: false
 })
 export class LeagueTableComponent {
   @Input({required: true}) data!: StandingsTableElement[];

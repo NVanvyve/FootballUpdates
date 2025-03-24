@@ -5,9 +5,10 @@ import {FixtureTableElement, TeamDetails} from "../../model/fixtures.model";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'foot-team-result',
-  templateUrl: './team-result.component.html',
-  styleUrls: ['./team-result.component.sass']
+    selector: 'foot-team-result',
+    templateUrl: './team-result.component.html',
+    styleUrls: ['./team-result.component.sass'],
+    standalone: false
 })
 export class TeamResultComponent {
   tableData?: FixtureTableElement[];

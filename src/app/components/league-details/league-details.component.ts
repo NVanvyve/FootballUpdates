@@ -5,9 +5,10 @@ import {ErrorService} from "../../services/error.service";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'foot-league-details',
-  templateUrl: './league-details.component.html',
-  styleUrls: ['./league-details.component.sass']
+    selector: 'foot-league-details',
+    templateUrl: './league-details.component.html',
+    styleUrls: ['./league-details.component.sass'],
+    standalone: false
 })
 export class LeagueDetailsComponent {
 
