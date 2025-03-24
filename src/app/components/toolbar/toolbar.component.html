@@ -5,13 +5,13 @@
      [routerLink]="'/'+(footballCountry.name | lowercase)"
      mat-button>
     <div>
-      <img src="{{getUrl(footballCountry.leagueId)}}" alt="">
+      <img src="{{urlMap[footballCountry.leagueId]}}" alt="">
       <div>
         <div class="country">
-          {{footballCountry.name | titlecase}}
+          {{ footballCountry.name | titlecase }}
         </div>
         <div class="league">
-          {{footballCountry.league | titlecase}}
+          {{ footballCountry.league | titlecase }}
         </div>
       </div>
     </div>

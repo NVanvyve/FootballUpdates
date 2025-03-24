@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FootballCountry} from "../../model/football-country.model";
 import {CountryService} from "../../services/country.service";
 import {RouterLink, RouterLinkActive} from "@angular/router";
@@ -21,14 +21,19 @@ import {MatAnchor} from "@angular/material/button";
   ],
   standalone: true
 })
-export class ToolbarComponent {
+export class ToolbarComponent implements OnInit {
+  private countryService: CountryService = inject(CountryService)
   footballCountries: FootballCountry[] = this.countryService.footballCountries;
+  public urlMap: { [key: number]: string } = {};
 
-  constructor(private countryService: CountryService) {
+  ngOnInit(): void {
+    this.footballCountries.map(v => v.leagueId)
+      .forEach(id => {
+        this.urlMap[id] = this.getUrl(id)
+      })
   }
 
-  // TODO Put in variable
-  getUrl(leagueId: number): string {
+  private getUrl(leagueId: number): string {
     return `https://media-4.api-sports.io/football/leagues/${leagueId}.png`;
   }
 }
