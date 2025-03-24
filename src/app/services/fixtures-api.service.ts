@@ -14,9 +14,8 @@ export class FixturesApiService {
   private seasonService: SeasonService = inject(SeasonService)
 
   private getFixtures(teamId: number, leagueId: number): Observable<FixturesApiResponse> {
-    const limit: number = 10
     const timeZone: string = `Europe/Brussels`;
-    const url: string = `${this.baseUrl}?league=${leagueId}&season=${this.seasonService.getSeason()}&team=${teamId}&last=${limit}&timezone=${timeZone}`;
+    const url: string = `${this.baseUrl}?league=${leagueId}&season=${this.seasonService.getSeason()}&team=${teamId}&timezone=${timeZone}`;
     return this.http.get<FixturesApiResponse>(url);
   }
 

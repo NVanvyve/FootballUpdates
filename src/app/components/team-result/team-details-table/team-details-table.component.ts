@@ -7,6 +7,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatRow,
+  MatRowDef,
   MatTable
 } from "@angular/material/table";
 import {NgClass, NgForOf} from "@angular/common";
@@ -24,7 +25,8 @@ import {NgClass, NgForOf} from "@angular/common";
     MatCellDef,
     MatHeaderCellDef,
     NgClass,
-    MatRow
+    MatRow,
+    MatRowDef
   ],
   standalone: true
 })
