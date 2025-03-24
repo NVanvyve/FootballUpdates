@@ -1,12 +1,23 @@
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-
-import {AppModule} from './app/app.module';
 import {enableProdMode} from "@angular/core";
 import {environment} from "./environments/environment";
+import {bootstrapApplication} from "@angular/platform-browser";
+import {AppComponent} from "./app/app.component";
+import {provideRouter, withHashLocation} from "@angular/router";
+import {routes} from "./app/app.routes";
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
+import {FootballApiInterceptor} from "./app/interceptors/football-api.interceptor";
 
 if (environment.production) {
   enableProdMode();
 }
-platformBrowserDynamic().bootstrapModule(AppModule)
-  // eslint-disable-next-line unicorn/prefer-top-level-await
-  .catch(error => console.error(error));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(routes, withHashLocation()),
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FootballApiInterceptor,
+      multi: true
+    }
+  ]
+}).catch(err => console.error(err));

@@ -1,21 +1,15 @@
-import {NgModule} from '@angular/core';
-import {ExtraOptions, RouterModule, Routes} from '@angular/router';
-import {LeagueDetailsComponent} from "./components/league-details/league-details.component";
-import {NotFoundComponent} from "./components/not-found/not-found.component";
-import {leagueGuard} from "./guards/league.guard";
+import {Routes} from "@angular/router";
 import {defaultCountryGuard} from "./guards/default-country.guard";
+import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {ErrorComponent} from "./components/error/error.component";
+import {leagueGuard} from "./guards/league.guard";
+import {LeagueDetailsComponent} from "./components/league-details/league-details.component";
+import {standingResolver} from "./resolvers/standing.resolver";
 import {TeamResultComponent} from "./components/team-result/team-result.component";
 import {teamGuard} from "./guards/team.guard";
-import {standingResolver} from "./resolvers/standing.resolver";
 import {teamDetailsResolver} from "./resolvers/team-details.resolver";
 
-const routerOptions: ExtraOptions = {
-  useHash: true,
-  enableTracing: false,
-};
-
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     canActivate: [defaultCountryGuard],
@@ -55,10 +49,3 @@ const routes: Routes = [
     redirectTo: 'not-found',
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, routerOptions)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {
-}
