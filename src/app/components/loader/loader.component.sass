@@ -2,19 +2,22 @@ div
   margin: 20px
 
   img
-    width: 20px
-    margin: 5px
+    width: 40px
+    margin: 10px
 
     &:nth-child(1)
       animation: bounce 1s ease infinite
 
     &:nth-child(2)
       animation: bounce 1s ease infinite
-      animation-delay: 200ms
+      animation-delay: 250ms
 
     &:nth-child(3)
       animation: bounce 1s ease infinite
-      animation-delay: 400ms
+      animation-delay: 500ms
+
+    &:nth-child(n+4)
+      display: none
 
 
 @keyframes bounce
