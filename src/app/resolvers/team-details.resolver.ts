@@ -7,8 +7,7 @@ import {FixturesApiService} from "../services/fixtures-api.service";
 import {catchError, of} from "rxjs";
 
 export const teamDetailsResolver: ResolveFn<TeamDetails> = (route, _state) => {
-  const router = inject(Router);
-
+  const router: Router = inject(Router);
   const country: string = route.paramMap.get('country')! // Present and valid => Guaranteed by the guard
   const leagueId: number = inject(CountryService).getCountry(country).leagueId;
   const teamId: string = route.paramMap.get('teamId')!; // Present and valid => Guaranteed by the guard
@@ -18,7 +17,7 @@ export const teamDetailsResolver: ResolveFn<TeamDetails> = (route, _state) => {
   }
   return inject(FixturesApiService).getFixturesTeamId(params.teamId, params.leagueId).pipe(
     catchError(_ => {
-      router.navigate(['/error'])
+      void router.navigate(['/error'])
       return of();
     }))
 };

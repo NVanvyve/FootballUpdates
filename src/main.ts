@@ -10,14 +10,18 @@ import {FootballApiInterceptor} from "./app/interceptors/football-api.intercepto
 if (environment.production) {
   enableProdMode();
 }
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter(routes, withHashLocation()),
-    provideHttpClient(withInterceptorsFromDi()),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: FootballApiInterceptor,
-      multi: true
-    }
-  ]
-}).catch(err => console.error(err));
+try {
+  await bootstrapApplication(AppComponent, {
+    providers: [
+      provideRouter(routes, withHashLocation()),
+      provideHttpClient(withInterceptorsFromDi()),
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: FootballApiInterceptor,
+        multi: true
+      }
+    ]
+  });
+} catch (error) {
+  console.error(error);
+}
