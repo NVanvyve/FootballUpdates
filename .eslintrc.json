@@ -3,7 +3,8 @@
   "ignorePatterns": [
     "projects/**/*",
     "**/*.spec.ts",
-    "**/environments/**"
+    "**/environments/**",
+    "main.ts"
   ],
   "overrides": [
     {
