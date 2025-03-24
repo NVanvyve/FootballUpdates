@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {StandingsTableElement} from "../../model/standings.model";
 import {ErrorService} from "../../services/error.service";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'foot-league-details',
@@ -12,16 +13,17 @@ export class LeagueDetailsComponent {
 
   tableData?: StandingsTableElement[];
 
+  private destroyRef : DestroyRef = inject(DestroyRef);
   constructor(
-    private route: ActivatedRoute,
-    private errorService: ErrorService
+    route: ActivatedRoute,
+    errorService: ErrorService
   ) {
-    this.route.paramMap.subscribe({
+    route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (_: ParamMap) => {
-        this.tableData = this.route.snapshot.data['tableData'] as StandingsTableElement[];
+        this.tableData = route.snapshot.data['tableData'] as StandingsTableElement[];
       },
       error: (error: Error) => {
-        this.errorService.handleError(error)
+        errorService.handleError(error)
       }
     });
   }
