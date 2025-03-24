@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FootballCountry} from "../../model/football-country.model";
 import {CountryService} from "../../services/country.service";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {LowerCasePipe, NgForOf, NgOptimizedImage, TitleCasePipe} from "@angular/common";
+import {LowerCasePipe, NgForOf, TitleCasePipe} from "@angular/common";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatAnchor} from "@angular/material/button";
 

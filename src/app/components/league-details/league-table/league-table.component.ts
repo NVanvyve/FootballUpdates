@@ -6,7 +6,10 @@ import {
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable
 } from "@angular/material/table";
 import {RouterLink} from "@angular/router";
