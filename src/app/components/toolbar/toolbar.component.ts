@@ -27,10 +27,9 @@ export class ToolbarComponent implements OnInit {
   public urlMap: { [key: number]: string } = {};
 
   ngOnInit(): void {
-    this.footballCountries.map(v => v.leagueId)
-      .forEach(id => {
+    for (const id of this.footballCountries.map(v => v.leagueId)) {
         this.urlMap[id] = this.getUrl(id)
-      })
+    }
   }
 
   private getUrl(leagueId: number): string {

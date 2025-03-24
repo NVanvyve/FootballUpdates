@@ -13,5 +13,4 @@ import {MatAnchor} from "@angular/material/button";
   standalone: true
 })
 export class NotFoundComponent {
-
 }
